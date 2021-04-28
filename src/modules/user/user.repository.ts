@@ -25,7 +25,7 @@ export class UserRepository {
     try {
       const { filter, projection, sort, limit, skip, page, population } = query;
       const [count, users] = await Promise.all([
-        this.userDb.count(filter),
+        this.userDb.countDocuments(filter),
         this.userDb
           .find(filter, projection)
           .sort(sort)

@@ -16,6 +16,8 @@ import { CategoryModule } from './modules/category/category.module';
 import { CategoryController } from './modules/category/category.controller';
 import { SubcategoryController } from './modules/subcategory/subcategory.controller';
 import { SubcategoryModule } from './modules/subcategory/subcategory.module';
+import { ShopModule } from './modules/shop/shop.module';
+import { ShopController } from './modules/shop/shop.controller';
 
 @Module({
   imports: [
@@ -31,6 +33,7 @@ import { SubcategoryModule } from './modules/subcategory/subcategory.module';
     ImageModule,
     CategoryModule,
     SubcategoryModule,
+    ShopModule,
   ],
   controllers: [AppController],
   providers: [FirebaseService],
@@ -46,6 +49,7 @@ export class AppModule implements NestModule {
         ImageController,
         CategoryController,
         SubcategoryController,
+        ShopController,
       );
   }
 }
