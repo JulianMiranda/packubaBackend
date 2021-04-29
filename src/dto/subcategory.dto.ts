@@ -1,14 +1,20 @@
-import {IsObject, IsString} from 'class-validator';
-import {Document} from 'mongoose';
-import {Image} from './image.dto';
+import { IsObject, IsString, IsNumber } from 'class-validator';
+import { Document } from 'mongoose';
+import { Image } from './image.dto';
 
 export class Subcategory extends Document {
-	@IsString()
-	name: string;
+  @IsString()
+  name: string;
 
-	@IsObject()
-	image: Partial<Image>;
+  @IsObject()
+  image: Partial<Image>;
 
-	@IsString()
-	category: string;
+  @IsString()
+  category: string;
+
+  @IsNumber()
+  price: number;
+
+  @IsString()
+  currency: string;
 }
