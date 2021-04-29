@@ -5,6 +5,7 @@ import { OrderSchema } from 'src/schemas/order.schema';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { OrderController } from './order.controller';
 import { OrderRepository } from './order.repository';
+import { UserSchema } from '../../schemas/user.schema';
 
 @Module({
   imports: [
@@ -16,6 +17,10 @@ import { OrderRepository } from './order.repository';
       {
         name: 'MyShop',
         schema: MyShopSchema,
+      },
+      {
+        name: 'User',
+        schema: UserSchema,
       },
     ]),
     NotificationsModule,

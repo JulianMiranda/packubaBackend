@@ -11,6 +11,8 @@ import { NOTIFICATION } from 'src/enums/notification.enum';
 import { MongoQuery } from '../../dto/mongo-query.dto';
 import { ENTITY } from '../../enums/entity.enum';
 import { NotificationsRepository } from '../notifications/notifications.repository';
+import { SendGridService } from '../../services/sendgrid.service';
+import { User } from '../../dto/user.dto';
 
 @Injectable()
 export class OrderRepository {
@@ -19,6 +21,7 @@ export class OrderRepository {
   constructor(
     @InjectModel('Order') private orderDb: Model<Order>,
     @InjectModel('MyShop') private shopDb: Model<MyShop>,
+    @InjectModel('User') private userDb: Model<User>,
     private notificationsRepository: NotificationsRepository,
   ) {}
 
@@ -64,13 +67,20 @@ export class OrderRepository {
 
   async setOrder(data: Order): Promise<boolean> {
     try {
-      console.log(data);
-
       const newOrder = new this.orderDb(data);
       const document = await newOrder.save();
       if (document) {
-        await this.shopDb.findOneAndUpdate({ user: data.user }, { car: [] });
-        this.notificationsRepository.newOrder(NOTIFICATION.ORDER, document._id);
+        const [user, deleteCar] = await Promise.all([
+          this.userDb.findById(data.user, { name: true, email: true }),
+          this.shopDb.findOneAndUpdate({ user: data.user }, { car: [] }),
+        ]);
+        await this.notificationsRepository.newOrder(
+          NOTIFICATION.ORDER,
+          document._id,
+        );
+        SendGridService.sendGrid(document, user).catch((err) =>
+          console.log(err),
+        );
       }
       return !!document;
     } catch (e) {

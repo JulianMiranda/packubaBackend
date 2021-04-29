@@ -20,6 +20,8 @@ import { ShopModule } from './modules/shop/shop.module';
 import { ShopController } from './modules/shop/shop.controller';
 import { OrderModule } from './modules/order/order.module';
 import { OrderController } from './modules/order/order.controller';
+import { ExpoService } from './services/expo.service';
+import { SendGridService } from './services/sendgrid.service';
 
 @Module({
   imports: [
@@ -39,7 +41,7 @@ import { OrderController } from './modules/order/order.controller';
     OrderModule,
   ],
   controllers: [AppController],
-  providers: [FirebaseService],
+  providers: [FirebaseService, ExpoService, SendGridService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
