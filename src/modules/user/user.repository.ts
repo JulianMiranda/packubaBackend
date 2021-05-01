@@ -11,6 +11,7 @@ import { MongoQuery } from '../../dto/mongo-query.dto';
 import { User } from '../../dto/user.dto';
 import { ENTITY } from '../../enums/entity.enum';
 import { ImageRepository } from '../image/image.repository';
+import { setNotificationToken } from './set-notificationToken';
 
 @Injectable()
 export class UserRepository {
@@ -25,7 +26,7 @@ export class UserRepository {
     try {
       const { filter, projection, sort, limit, skip, page, population } = query;
       const [count, users] = await Promise.all([
-        this.userDb.count(filter),
+        this.userDb.countDocuments(filter),
         this.userDb
           .find(filter, projection)
           .sort(sort)
@@ -66,15 +67,23 @@ export class UserRepository {
     image: Partial<Image>,
   ): Promise<User> {
     try {
-      const { newFavorite, removeFavorite, notificationTokens, ...rest } = data;
-
-      /* 	if (notificationTokens) {
-				await this.userDb.findOneAndUpdate(
+      const {
+        newFavorite,
+        removeFavorite,
+        /*  notificationTokens, */ ...rest
+      } = data;
+      const a = '';
+      /*      	if (notificationTokens) { */
+      /*   const notificationStored = await this.userDb.findById(id,{notificationTokens: true})
+          notificationStored.notificationTokens.map(token =>) */
+      /* 	await this.userDb.findOneAndUpdate(
 					{_id: id},
-					{$addToSet: {notificationTokens}},
-				);
-			}
- */
+					{$addToSet: {notificationTokens: a }},
+				); */
+      /* await this.userDb.populate(setNotificationToken(id,notificationTokens)) */
+
+      /* 		} */
+
       if (newFavorite) {
         await this.userDb.findOneAndUpdate(
           { _id: id },
