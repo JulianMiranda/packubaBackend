@@ -32,6 +32,4 @@ export const MAPBOX_API_KEY =
   process.env.MAPBOX_API_KEY ||
   'pk.eyJ1IjoianVsaWFubWlyYW5kYXdheXUyIiwiYSI6ImNrYWgyMG1jNTAyb2wyd3FlMTl5dXN0cnoifQ.amDhY-A087EYgGpYiycrSA';
 
-export const SENDGRID_API_KEY =
-  process.env.SENDGRID_API_KEY ||
-  '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';
+export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';
