@@ -7,16 +7,8 @@ export const UserSchema = new mongoose.Schema(
     firebaseId: String,
     name: { type: String, index: true },
 
-    email: {
-      type: String,
-      index: true,
-      /* unique: [true, 'El email ya existe'], */
-    },
-    phone: {
-      type: String,
-      index: true,
-      /* unique: [true, 'El email ya existe'], */
-    },
+    email: String,
+    phone: String,
     role: String,
     defaultImage: String,
     image: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
