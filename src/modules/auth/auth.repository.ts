@@ -30,6 +30,7 @@ export class AuthRepository {
             role: true,
             image: true,
             theme: true,
+            phone: true,
           })
           .populate([
             {
@@ -72,6 +73,7 @@ export class AuthRepository {
           image: true,
           role: true,
           theme: true,
+          phone: true,
         })
         .populate([
           {

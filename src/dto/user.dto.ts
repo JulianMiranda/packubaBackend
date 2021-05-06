@@ -3,6 +3,7 @@ import {
   IsBoolean,
   IsEmail,
   IsMongoId,
+  IsPhoneNumber,
   IsString,
   IsUrl,
 } from 'class-validator';
@@ -28,6 +29,10 @@ export class User extends Document {
 
   @IsString()
   serviceZone: string;
+
+  @IsString()
+  @IsPhoneNumber()
+  phone: string;
 
   @IsString()
   role: string;

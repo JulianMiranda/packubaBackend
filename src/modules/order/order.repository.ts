@@ -48,9 +48,8 @@ export class OrderRepository {
     try {
       const document = await this.orderDb.findOne({ _id: id }).populate([
         {
-          path: 'image',
-          match: { status: true },
-          select: { url: true },
+          path: 'user',
+          select: { name: true },
         },
       ]);
 
