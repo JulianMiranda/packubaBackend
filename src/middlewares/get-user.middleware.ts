@@ -37,6 +37,7 @@ export class GetUserMiddleware implements NestMiddleware {
             ? firebaseInfo.picture
             : getDefaultImage(firebaseInfo.name),
           email: firebaseInfo.email,
+          phone: firebaseInfo.phoneNumber,
           role: firebaseInfo.role || ROLES.CUN,
         };
 

@@ -10,7 +10,12 @@ export const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       index: true,
-      unique: [true, 'El email ya existe'],
+      /* unique: [true, 'El email ya existe'], */
+    },
+    phone: {
+      type: String,
+      index: true,
+      /* unique: [true, 'El email ya existe'], */
     },
     role: String,
     defaultImage: String,

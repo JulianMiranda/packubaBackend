@@ -31,6 +31,7 @@ const checkUsersProps = (data: Partial<User>): Partial<User> => {
     'removeFavorite',
     'notificationTokens',
     'theme',
+    'phone',
   ];
   const { role, theme } = data;
   if (role && !['ADMIN', 'JUN', 'CUN'].includes(role))
