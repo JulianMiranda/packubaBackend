@@ -32,6 +32,7 @@ const checkUsersProps = (data: Partial<User>): Partial<User> => {
     'notificationTokens',
     'theme',
     'phone',
+    'authorized',
   ];
   const { role, theme } = data;
   if (role && !['ADMIN', 'JUN', 'CUN'].includes(role))
@@ -53,7 +54,16 @@ const checkCategoriesProps = (data: Partial<Category>): Partial<Category> => {
 const checkSubcategoriesProps = (
   data: Partial<Subcategory>,
 ): Partial<Subcategory> => {
-  const props = ['name', 'status', 'image', 'category', 'price', 'currency'];
+  const props = [
+    'name',
+    'status',
+    'images',
+    'category',
+    'price',
+    'currency',
+    'deleteImages',
+    'weight',
+  ];
   checkProps(props, Object.keys(data));
   return data;
 };
