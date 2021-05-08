@@ -44,7 +44,7 @@ const checkCategoriesProps = (data: Partial<Category>): Partial<Category> => {
 const checkSubcategoriesProps = (
   data: Partial<Subcategory>,
 ): Partial<Subcategory> => {
-  const props = ['name', 'image', 'category'];
+  const props = ['name', 'images', 'category'];
   const dataCopy = prepareProps(props, { ...data });
   checkNullOrUndefined(props, dataCopy);
   return data;

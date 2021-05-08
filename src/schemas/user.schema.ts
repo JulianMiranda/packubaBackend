@@ -13,6 +13,7 @@ export const UserSchema = new mongoose.Schema(
     defaultImage: String,
     image: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
     status: { type: Boolean, default: true, index: true },
+    authorized: { type: Boolean, default: false, index: true },
     preferences: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
     favoriteOwners: [
       { type: mongoose.Schema.Types.ObjectId, ref: 'Owners', index: true },

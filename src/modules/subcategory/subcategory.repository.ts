@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import casual from 'casual';
 import { Model } from 'mongoose';
 import { Image } from '../../dto/image.dto';
 import { MongoQuery } from '../../dto/mongo-query.dto';
@@ -47,7 +46,7 @@ export class SubcategoryRepository {
     try {
       const document = await this.subcategoryDb.findOne({ _id: id }).populate([
         {
-          path: 'image',
+          path: 'images',
           match: { status: true },
           select: { url: true },
         },
@@ -71,20 +70,38 @@ export class SubcategoryRepository {
     }
   }
 
-  async create(data: Subcategory, image: Partial<Image>): Promise<boolean> {
+  async create(
+    data: Subcategory,
+    images: Array<Partial<Image>>,
+  ): Promise<boolean> {
     try {
       const newSubcategory = new this.subcategoryDb(data);
-      const document = await newSubcategory.save();
+      if (!images) {
+        const subcategory = await newSubcategory.save();
 
-      image.parentType = this.type;
-      image.parentId = document._id;
+        return !!subcategory;
+      } else {
+        const document = await newSubcategory.save();
 
-      const imageModel = await this.imageRepository.insertImages([image]);
+        const createImages = images.map((image) => {
+          image.parentType = this.type;
+          image.parentId = document._id;
+          return image;
+        });
+        const imageModel = await this.imageRepository.insertImages(
+          createImages,
+        );
 
-      return !!(await this.subcategoryDb.findOneAndUpdate(
-        { _id: document._id },
-        { image: imageModel[0]._id },
-      ));
+        const newImages = imageModel.map((doc) => doc._id);
+
+        const subcategory = await this.subcategoryDb.findOneAndUpdate(
+          { _id: document._id },
+          { images: newImages },
+          { new: true },
+        );
+
+        return !!subcategory;
+      }
     } catch (e) {
       throw new InternalServerErrorException(
         'createSubcategory Database error',
@@ -96,23 +113,49 @@ export class SubcategoryRepository {
   async update(
     id: string,
     data: Partial<Subcategory>,
-    image: Partial<Image>,
+    images: Array<Partial<Image>>,
+    deleteImages: string[],
   ): Promise<boolean> {
     try {
-      let newImage = {};
-      if (image) {
-        await this.imageRepository.deleteImagesByTypeAndId(this.type, id);
+      if (images || deleteImages) {
+        const storedImages = await this.subcategoryDb
+          .findOne({ _id: id }, { images: true, _id: false })
+          .lean();
 
-        image.parentType = this.type;
-        image.parentId = id;
-        const imageModel = await this.imageRepository.insertImages([image]);
-        newImage = { image: imageModel[0]._id };
+        let newImages = [];
+        if (images && images.length > 0) {
+          const createImages = images.map((image) => {
+            image.parentType = this.type;
+            image.parentId = id;
+            return image;
+          });
+
+          const imageModel = await this.imageRepository.insertImages(
+            createImages,
+          );
+          newImages = imageModel.map((doc) => doc._id);
+        }
+
+        if (deleteImages && deleteImages.length > 0) {
+          this.imageRepository.deleteImages(deleteImages);
+
+          data.images = [...storedImages.images, ...newImages]
+            .map((imageId) => imageId.toString())
+            .filter((imageId) => deleteImages.indexOf(imageId) === -1);
+        } else if (newImages.length > 0) {
+          data.images = [...storedImages.images, ...newImages];
+        }
       }
-
-      const document = await this.subcategoryDb.findOneAndUpdate(
-        { _id: id },
-        { ...data, ...newImage },
-      );
+      const document = await this.subcategoryDb
+        .findOneAndUpdate({ _id: id }, data, { new: true })
+        .populate([
+          { path: 'unit', select: { name: true } },
+          {
+            path: 'images',
+            match: { status: true },
+            select: { url: true },
+          },
+        ]);
 
       if (!document)
         throw new NotFoundException(

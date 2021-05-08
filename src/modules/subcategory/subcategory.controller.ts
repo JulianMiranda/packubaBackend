@@ -36,9 +36,9 @@ export class SubcategoryController {
   @Post('/create')
   @UsePipes(new RequiredProps(ENTITY.SUBCATEGORY))
   create(@Body() data: Subcategory): Promise<boolean> {
-    const { image } = data;
-    delete data.image;
-    return this.subcategoryRepository.create(data, image);
+    const { images } = data;
+    delete data.images;
+    return this.subcategoryRepository.create(data, images);
   }
   @UseGuards(AuthenticationGuard)
   @Put('/update/:id')
@@ -47,9 +47,10 @@ export class SubcategoryController {
     @Param('id') id: string,
     @Body() data: Partial<Subcategory>,
   ): Promise<boolean> {
-    const { image } = data;
-    delete data.image;
-    return this.subcategoryRepository.update(id, data, image);
+    const { images, deleteImages } = data;
+    delete data.images;
+    delete data.deleteImages;
+    return this.subcategoryRepository.update(id, data, images, deleteImages);
   }
   @UseGuards(AuthenticationGuard)
   @Delete('/delete/:id')
