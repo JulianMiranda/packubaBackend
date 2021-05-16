@@ -8,7 +8,8 @@ export const PORT = process.env.PORT || 5001;
  */
 export const MONGO_CONNECTION =
   process.env.MONGO_CONNECTION ||
-  'mongodb+srv://tyto:O1OdIZvXX5dHuMNJ@cluster0-fkyqi.mongodb.net/packuba';
+  'mongodb+srv://tyto:5epXXvk0yxBqkk7c@cluster0.9jous.mongodb.net/packuba';
+//'mongodb+srv://tyto:O1OdIZvXX5dHuMNJ@cluster0-fkyqi.mongodb.net/packuba';
 
 /**
  * Firebase private key
