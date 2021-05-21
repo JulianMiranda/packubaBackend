@@ -9,6 +9,7 @@ const SubcategorySchema = new mongoose.Schema(
       index: true,
       ref: 'Category',
     },
+    value: Number,
     price: Number,
     weight: Number,
     currency: { type: String, default: 'USD' },

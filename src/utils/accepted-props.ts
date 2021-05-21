@@ -63,6 +63,7 @@ const checkSubcategoriesProps = (
     'currency',
     'deleteImages',
     'weight',
+    'value',
   ];
   checkProps(props, Object.keys(data));
   return data;
