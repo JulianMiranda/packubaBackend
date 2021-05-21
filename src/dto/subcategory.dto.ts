@@ -18,6 +18,9 @@ export class Subcategory extends Document {
   weight: number;
 
   @IsNumber()
+  value: number;
+
+  @IsNumber()
   price: number;
 
   @IsString()
