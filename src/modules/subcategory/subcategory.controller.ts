@@ -62,4 +62,9 @@ export class SubcategoryController {
   setPrice(): Promise<Boolean> {
     return this.subcategoryRepository.setPrice();
   }
+
+  @Get('/getProduct/:id')
+  getProduct(@Param('id') id: string): Promise<Subcategory> {
+    return this.subcategoryRepository.getProduct(id);
+  }
 }
