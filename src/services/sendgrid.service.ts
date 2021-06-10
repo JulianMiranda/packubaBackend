@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as sgMail from '@sendgrid/mail';
 import * as moment from 'moment';
-import { SENDGRID_API_KEY } from '../config/config';
+import { SENDGRID_API_KEY, SENDGRID_TEMPL_ID } from '../config/config';
 import { Order } from '../dto/order.dto';
 import { User } from '../dto/user.dto';
 @Injectable()
@@ -27,11 +27,13 @@ export class SendGridService {
       to: 'jmirandauria@gmail.com',
       /** This is the sender email account */
       from: {
-        name: 'Packuba App',
+        name: 'Packuba',
         email: 'enviospackuba@gmail.com',
       },
       /** This the TemplateID from SG that is used for sending the e-mail */
-      templateId: 'd-5998a7b204ab410fab6b036a97260c16',
+
+      templateId: SENDGRID_TEMPL_ID,
+
       dynamicTemplateData: {
         user: user.name,
         total,

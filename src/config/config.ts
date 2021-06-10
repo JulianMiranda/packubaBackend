@@ -34,3 +34,4 @@ export const MAPBOX_API_KEY =
   'pk.eyJ1IjoianVsaWFubWlyYW5kYXdheXUyIiwiYSI6ImNrYWgyMG1jNTAyb2wyd3FlMTl5dXN0cnoifQ.amDhY-A087EYgGpYiycrSA';
 
 export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';
+export const SENDGRID_TEMPL_ID = process.env.SENDGRID_TEMPL_ID || '';
