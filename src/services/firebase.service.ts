@@ -4,6 +4,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import * as admin from 'firebase-admin';
+import { splitArray } from 'src/utils/util';
 /* import {splitArray} from '../utils/util'; */
 
 @Injectable()
@@ -37,8 +38,7 @@ export class FirebaseService {
   }
 
   static async sendPushNotifications(notificationsArray: any[]) {
-    /* const notificationBatches = splitArray(notificationsArray, 500); */
-    const notificationBatches = notificationsArray;
+    const notificationBatches = splitArray(notificationsArray, 500);
 
     for (const batch of notificationBatches) {
       await admin.messaging().sendAll(batch);
