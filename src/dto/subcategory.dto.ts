@@ -23,6 +23,9 @@ export class Subcategory extends Document {
   @IsNumber()
   price: number;
 
+  @IsNumber()
+  priceGalore: number;
+
   @IsString()
   currency: string;
 }

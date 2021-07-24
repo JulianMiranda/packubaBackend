@@ -11,6 +11,7 @@ const SubcategorySchema = new mongoose.Schema(
     },
     value: Number,
     price: Number,
+    priceGalore: Number,
     weight: Number,
     currency: { type: String, default: 'USD' },
     images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
