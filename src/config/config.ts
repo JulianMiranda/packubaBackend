@@ -35,3 +35,4 @@ export const MAPBOX_API_KEY =
 
 export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';
 export const SENDGRID_TEMPL_ID = process.env.SENDGRID_TEMPL_ID || '';
+export const JWT_KEY = process.env.JWT_KEY || 'tokencombi1233';

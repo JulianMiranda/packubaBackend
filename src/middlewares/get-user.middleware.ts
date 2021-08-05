@@ -15,8 +15,9 @@ export class GetUserMiddleware implements NestMiddleware {
   constructor(private roleRepository: RoleRepository) {}
 
   async use(req: Request, res: Response, next: () => void) {
+    console.log('dio',this.roleRepository.getRoles()[ROLES.CUN]);
     const token = req.headers['x-token'];
-
+    console.log('haciendo firebase');
     if (!token) {
       next();
       return;

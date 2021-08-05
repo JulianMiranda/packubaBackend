@@ -22,6 +22,7 @@ import { SubcategoryRepository } from './subcategory.repository';
 export class SubcategoryController {
   constructor(private subcategoryRepository: SubcategoryRepository) {}
 
+  @UseGuards(AuthenticationGuard)
   @Post('/getList')
   @UsePipes(new TransformQuery())
   getList(@Body() query: MongoQuery): any {
