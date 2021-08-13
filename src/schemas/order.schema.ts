@@ -6,6 +6,7 @@ export const OrderSchema = new mongoose.Schema(
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: true },
     car: [],
     cost: Number,
+    description: String,
     currency: { type: String, default: 'USD' },
     /* car: [
       {

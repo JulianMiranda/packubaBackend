@@ -10,7 +10,7 @@ export class SendGridService {
   static init() {}
 
   static async sendGrid(data: Partial<Order>, user: Partial<User>) {
-    const { car } = data;
+    const { car, description } = data;
     const dataCar = car.map((item) => {
       const costItem = item.cantidad * item.subcategory.price;
       return { name: item.subcategory.name, cantidad: item.cantidad, costItem };
@@ -39,6 +39,7 @@ export class SendGridService {
         total,
         envio,
         products: dataCar,
+        description
       },
     };
 

@@ -20,4 +20,7 @@ export class Order extends Document {
 
   @IsString()
   currency: string;
+
+  @IsString()
+  description: string;
 }
