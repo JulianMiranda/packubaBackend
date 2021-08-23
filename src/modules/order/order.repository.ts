@@ -136,4 +136,15 @@ export class OrderRepository {
       throw new InternalServerErrorException('deleteOrder Database error', e);
     }
   }
+
+  getPrice(): number {
+    try {
+     
+      return 22;
+    } catch (e) {
+      if (e.status === 404) throw e;
+      else
+        throw new InternalServerErrorException('getPrice Database error', e);
+    }
+  }
 }

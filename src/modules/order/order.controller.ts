@@ -60,4 +60,9 @@ export class OrderController {
   delete(@Param('id') id: string): Promise<boolean> {
     return this.orderRepository.delete(id);
   }
+
+  @Get('/getPrice')
+  getPrice(): number {
+    return this.orderRepository.getPrice();
+  }
 }
