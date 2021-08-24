@@ -20,33 +20,33 @@ import { TransformQuery } from '../../pipes/transform-query.pipe';
 import { OrderRepository } from './order.repository';
 
 @Controller(ENTITY.ORDER)
-@UseGuards(AuthenticationGuard)
+
 export class OrderController {
   constructor(private orderRepository: OrderRepository) {}
-
+  @UseGuards(AuthenticationGuard)
   @Post('/getList')
   @UsePipes(new TransformQuery())
   getList(@Body() query: MongoQuery): any {
     return this.orderRepository.getList(query);
   }
-
+  @UseGuards(AuthenticationGuard)
   @Get('/getOne/:id')
   getOne(@Param('id') id: string): Promise<Order> {
     return this.orderRepository.getOne(id);
   }
-
+  @UseGuards(AuthenticationGuard)
   @Post('/setOrder')
   @UsePipes(new RequiredProps(ENTITY.ORDER))
   setOrder(@Body() data: Order): Promise<boolean> {
     return this.orderRepository.setOrder(data);
   }
-
+  @UseGuards(AuthenticationGuard)
   @Post('/create')
   @UsePipes(new RequiredProps(ENTITY.ORDER))
   create(@Body() data: Order): Promise<boolean> {
     return this.orderRepository.create(data);
   }
-
+  @UseGuards(AuthenticationGuard)
   @Put('/update/:id')
   @UsePipes(new AcceptedProps(ENTITY.ORDER))
   update(
@@ -55,7 +55,7 @@ export class OrderController {
   ): Promise<boolean> {
     return this.orderRepository.update(id, data);
   }
-
+  @UseGuards(AuthenticationGuard)
   @Delete('/delete/:id')
   delete(@Param('id') id: string): Promise<boolean> {
     return this.orderRepository.delete(id);
