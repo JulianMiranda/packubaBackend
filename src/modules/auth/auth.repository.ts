@@ -179,6 +179,7 @@ export class AuthRepository {
       image: true,
       theme: true,
       phone: true,
+      status: true
     }).populate([
       {
         path: 'image',
