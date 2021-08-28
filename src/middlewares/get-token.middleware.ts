@@ -31,6 +31,8 @@ import { verifyJWT } from 'src/utils/verifyJWS';
         console.log(useruid);
         
         const nw = await this.userRepository.getUser(useruid[1]);
+        console.log(nw);
+        
         if (useruid) {
           if (!useruid[0])
             throw new ServiceUnavailableException('Please login again');
@@ -40,10 +42,14 @@ import { verifyJWT } from 'src/utils/verifyJWS';
             name: nw.name ? nw.name : 'Anonymous',
             image: nw.name ? getDefaultImage(nw.name) : getDefaultImage('Anonymous'),
             role: nw.role || ROLES.CUN,
+            status: nw.status
           };
           if (nw.email) user.email = nw.email;
           if (nw.phone) user.phone = nw.phone;
           if (nw.id) user.id = nw.id;
+
+          console.log('salida',user);
+          
   
           (user.permissions = this.roleRepository.getRoles()[user.role]),
             (req['user'] = user);
