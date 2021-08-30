@@ -12,7 +12,7 @@ const SubcategorySchema = new mongoose.Schema(
     value: Number,
     price: Number,
     priceGalore: Number,
-    weight: Number,
+    weight: { type: Number, default: 0 },
     currency: { type: String, default: 'USD' },
     images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
     status: { type: Boolean, default: true, index: true },

@@ -47,9 +47,6 @@ import { verifyJWT } from 'src/utils/verifyJWS';
           if (nw.email) user.email = nw.email;
           if (nw.phone) user.phone = nw.phone;
           if (nw.id) user.id = nw.id;
-
-          console.log('salida',user);
-          
   
           (user.permissions = this.roleRepository.getRoles()[user.role]),
             (req['user'] = user);
