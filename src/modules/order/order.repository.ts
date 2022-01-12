@@ -140,7 +140,7 @@ export class OrderRepository {
   getPrice(): number {
     try {
      
-      return 22.00;
+      return 26.00;
     } catch (e) {
       if (e.status === 404) throw e;
       else
