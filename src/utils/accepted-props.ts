@@ -29,6 +29,7 @@ const checkUsersProps = (data: Partial<User>): Partial<User> => {
     'serviceZone',
     'newFavorite',
     'removeFavorite',
+    'codes',
     'notificationTokens',
     'theme',
     'phone',

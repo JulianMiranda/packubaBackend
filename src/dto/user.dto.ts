@@ -43,6 +43,10 @@ export class User extends Document {
   @IsArray()
   permissions: string[];
 
+  
+  @IsArray()
+  codes: string[];
+
   @IsString()
   defaultImage: string;
 

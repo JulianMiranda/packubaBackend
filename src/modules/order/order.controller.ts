@@ -65,4 +65,23 @@ export class OrderController {
   getPrice(): number {
     return this.orderRepository.getPrice();
   }
+
+  @Get('/getMN')
+  getMN(): number {
+    return this.orderRepository.getMN();
+  }
+
+ @Get('/getMLC')
+ getMLC(): number {
+    return this.orderRepository.getMLC();
+  }
+  @Get('/trackCodes/:id')
+  trackCodes(@Param('id') id: string): Promise<any> {
+    return this.orderRepository.trackCodes(id);
+  }
+
+  @Post('/newSendMoney')
+  newSendMoney(@Body() data: any): Promise<any> {
+    return this.orderRepository.newSendMoney(data);
+  }
 }

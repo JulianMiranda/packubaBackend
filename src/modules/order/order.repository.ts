@@ -13,6 +13,7 @@ import { ENTITY } from '../../enums/entity.enum';
 import { NotificationsRepository } from '../notifications/notifications.repository';
 import { SendGridService } from '../../services/sendgrid.service';
 import { User } from '../../dto/user.dto';
+import { TrackService } from 'src/services/track.service';
 
 @Injectable()
 export class OrderRepository {
@@ -23,6 +24,7 @@ export class OrderRepository {
     @InjectModel('MyShop') private shopDb: Model<MyShop>,
     @InjectModel('User') private userDb: Model<User>,
     private notificationsRepository: NotificationsRepository,
+    private trackService: TrackService,
   ) {}
 
   async getList(query: MongoQuery): Promise<any> {
@@ -141,6 +143,53 @@ export class OrderRepository {
     try {
      
       return 26.00;
+    } catch (e) {
+      if (e.status === 404) throw e;
+      else
+        throw new InternalServerErrorException('getPrice Database error', e);
+    }
+  }
+
+  
+
+  getMN(): number {
+    try {
+     
+      return 70.00;
+    } catch (e) {
+      if (e.status === 404) throw e;
+      else
+        throw new InternalServerErrorException('getMN Database error', e);
+    }
+  }
+
+  getMLC(): number {
+    try {
+     
+      return 125.00;
+    } catch (e) {
+      if (e.status === 404) throw e;
+      else
+        throw new InternalServerErrorException('getMLC Database error', e);
+    }
+  }
+  newSendMoney(data: any): any {
+    try {
+      SendGridService.sendGridSendMoney(data).catch((err) =>
+          console.log(err),
+        );
+    } catch (e) {
+      if (e.status === 404) throw e;
+      else
+        throw new InternalServerErrorException('newSendMoney Database error', e);
+    }
+  }
+  async trackCodes(id: string): Promise<any> {
+    try {
+      const user = await this.userDb.findById(id, {
+        codes: true,
+      })
+      this.trackService.trackService(user)      
     } catch (e) {
       if (e.status === 404) throw e;
       else

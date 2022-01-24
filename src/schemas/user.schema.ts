@@ -6,7 +6,6 @@ export const UserSchema = new mongoose.Schema(
   {
     firebaseId: String,
     name: { type: String, index: true },
-
     email: String,
     phone: String,
     role: String,
@@ -14,6 +13,7 @@ export const UserSchema = new mongoose.Schema(
     image: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
     status: { type: Boolean, default: true, index: true },
     authorized: { type: Boolean, default: false, index: true },
+    codes: [{ type: String, default: [] }],
     preferences: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
     favoriteOwners: [
       { type: mongoose.Schema.Types.ObjectId, ref: 'Owners', index: true },
