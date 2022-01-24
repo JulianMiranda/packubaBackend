@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as sgMail from '@sendgrid/mail';
 import * as moment from 'moment';
-import { SENDGRID_API_KEY, SENDGRID_TEMPL_ID,SENDGRID_TEMPL_ID_MONEY } from '../config/config';
+import { SENDGRID_API_KEY, SENDGRID_TEMPL_ID, SENDGRID_TEMPL_ID_MONEY } from '../config/config';
 import { Order } from '../dto/order.dto';
 import { User } from '../dto/user.dto';
 @Injectable()
@@ -10,10 +10,10 @@ export class SendGridService {
   static init() {}
 
   static async sendGrid(data: Partial<Order>, user: Partial<User>) {
-    const { car, description } = data;
+    const { car } = data;
     const dataCar = car.map((item) => {
       const costItem = item.cantidad * item.subcategory.price;
-      return { name: item.subcategory.name, cantidad: item.cantidad,subcategory: item.subcategory.category.name, costItem };
+      return { name: item.subcategory.name, cantidad: item.cantidad, costItem };
     });
 
     const envio = 19.6;
@@ -39,7 +39,6 @@ export class SendGridService {
         total,
         envio,
         products: dataCar,
-        description
       },
     };
 
@@ -48,7 +47,6 @@ export class SendGridService {
     sgMail.send(msgToJUN);
   }
 
-  
   static async sendGridSendMoney(data: any) {
    const { name,
       phone,
@@ -60,7 +58,7 @@ export class SendGridService {
     sgMail.setApiKey(SENDGRID_API_KEY);
 
     const msgToJUN = {
-      to: 'pedropablosans13@gmail.com',
+      to: 'jmirandauria@gmail.com',
       /** This is the sender email account */
       from: {
         name: 'Packuba',

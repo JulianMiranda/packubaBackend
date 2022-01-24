@@ -150,8 +150,6 @@ export class OrderRepository {
     }
   }
 
-  
-
   getMN(): number {
     try {
      
