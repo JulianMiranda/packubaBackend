@@ -3,7 +3,7 @@ import {AuthenticationGuard} from 'src/guards/authentication.guard';
 import {RoleRepository} from './role.repository';
 
 @Controller()
-@UseGuards(AuthenticationGuard)
+/* @UseGuards(AuthenticationGuard) */
 export class RoleController {
 	constructor(private roleRepository: RoleRepository) {}
 

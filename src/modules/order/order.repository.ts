@@ -49,7 +49,7 @@ export class OrderRepository {
       const document = await this.orderDb.findOne({ _id: id }).populate([
         {
           path: 'user',
-          select: { name: true },
+          select: { name: true, phone: true },
         },
       ]);
 
@@ -134,6 +134,17 @@ export class OrderRepository {
     } catch (e) {
       if (e.status === 404) throw e;
       throw new InternalServerErrorException('deleteOrder Database error', e);
+    }
+  }
+
+  getPrice(): number {
+    try {
+     
+      return 26.00;
+    } catch (e) {
+      if (e.status === 404) throw e;
+      else
+        throw new InternalServerErrorException('getPrice Database error', e);
     }
   }
 }

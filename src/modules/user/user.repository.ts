@@ -163,4 +163,29 @@ export class UserRepository {
       throw new InternalServerErrorException('deleteUser Database error', e);
     }
   }
+
+
+  async getUser(phone: string): Promise<User> {
+    try {
+
+      const document = await this.userDb.findOne({ phone }).populate([
+        {
+          path: 'image',
+          match: { status: true },
+          select: { url: true },
+        },
+      ]);
+
+    
+      
+      if (!document)
+        throw new NotFoundException(`Could not find user for id: ${phone}`);
+
+      return document;
+    } catch (e) {
+      if (e.status === 404) throw e;
+      else throw new InternalServerErrorException('findUser Database error', e);
+    }
+  }
+
 }

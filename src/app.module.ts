@@ -22,6 +22,7 @@ import { OrderModule } from './modules/order/order.module';
 import { OrderController } from './modules/order/order.controller';
 import { ExpoService } from './services/expo.service';
 import { SendGridService } from './services/sendgrid.service';
+import { GetTokenMiddleware } from './middlewares/get-token.middleware';
 
 @Module({
   imports: [
@@ -46,7 +47,7 @@ import { SendGridService } from './services/sendgrid.service';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
     consumer
-      .apply(GetUserMiddleware)
+      .apply(GetTokenMiddleware)
       .forRoutes(
         AuthController,
         UserController,

@@ -16,6 +16,9 @@ export class User extends Document {
   @IsBoolean()
   online: boolean;
 
+  @IsBoolean()
+  status: boolean;
+
   @IsString()
   name: string;
 

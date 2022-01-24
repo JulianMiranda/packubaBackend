@@ -15,8 +15,9 @@ export class GetUserMiddleware implements NestMiddleware {
   constructor(private roleRepository: RoleRepository) {}
 
   async use(req: Request, res: Response, next: () => void) {
+    console.log('dio',this.roleRepository.getRoles()[ROLES.CUN]);
     const token = req.headers['x-token'];
-
+    console.log('haciendo firebase');
     if (!token) {
       next();
       return;
@@ -36,11 +37,10 @@ export class GetUserMiddleware implements NestMiddleware {
           image: firebaseInfo.picture
             ? firebaseInfo.picture
             : getDefaultImage(firebaseInfo.name),
-          email: firebaseInfo.email,
-          phone: firebaseInfo.phoneNumber,
           role: firebaseInfo.role || ROLES.CUN,
         };
-
+        if (firebaseInfo.email) user.email = firebaseInfo.email;
+        if (firebaseInfo.phone_number) user.phone = firebaseInfo.phone_number;
         if (firebaseInfo.mongoId) user.id = firebaseInfo.mongoId;
 
         (user.permissions = this.roleRepository.getRoles()[user.role]),
