@@ -141,57 +141,51 @@ export class OrderRepository {
 
   getPrice(): number {
     try {
-     
-      return 26.00;
+      return 26.0;
     } catch (e) {
       if (e.status === 404) throw e;
-      else
-        throw new InternalServerErrorException('getPrice Database error', e);
+      else throw new InternalServerErrorException('getPrice Database error', e);
     }
   }
 
   getMN(): number {
     try {
-     
-      return 70.00;
+      return 85.0;
     } catch (e) {
       if (e.status === 404) throw e;
-      else
-        throw new InternalServerErrorException('getMN Database error', e);
+      else throw new InternalServerErrorException('getMN Database error', e);
     }
   }
 
   getMLC(): number {
     try {
-     
-      return 125.00;
+      return 125.0;
     } catch (e) {
       if (e.status === 404) throw e;
-      else
-        throw new InternalServerErrorException('getMLC Database error', e);
+      else throw new InternalServerErrorException('getMLC Database error', e);
     }
   }
   newSendMoney(data: any): any {
     try {
-      SendGridService.sendGridSendMoney(data).catch((err) =>
-          console.log(err),
-        );
+      SendGridService.sendGridSendMoney(data).catch((err) => console.log(err));
     } catch (e) {
       if (e.status === 404) throw e;
       else
-        throw new InternalServerErrorException('newSendMoney Database error', e);
+        throw new InternalServerErrorException(
+          'newSendMoney Database error',
+          e,
+        );
     }
   }
   async trackCodes(id: string): Promise<any> {
     try {
       const user = await this.userDb.findById(id, {
         codes: true,
-      })
-      this.trackService.trackService(user)      
+      });
+      this.trackService.trackService(user);
     } catch (e) {
       if (e.status === 404) throw e;
-      else
-        throw new InternalServerErrorException('getPrice Database error', e);
+      else throw new InternalServerErrorException('getPrice Database error', e);
     }
   }
 }
