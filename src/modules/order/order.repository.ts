@@ -141,7 +141,7 @@ export class OrderRepository {
 
   getPrice(): number {
     try {
-      return 26.0;
+      return 21.0;
     } catch (e) {
       if (e.status === 404) throw e;
       else throw new InternalServerErrorException('getPrice Database error', e);
@@ -150,7 +150,7 @@ export class OrderRepository {
 
   getMN(): number {
     try {
-      return 85.0;
+      return 90.0;
     } catch (e) {
       if (e.status === 404) throw e;
       else throw new InternalServerErrorException('getMN Database error', e);
